@@ -556,11 +556,11 @@ class ConversionTest(unittest.TestCase):
             "\r\n"
             "Technique : 1\r\n"
             "Modulo Bat\r\n"
-            "Ns                  0                   1                   2                   3                   4                   5                   5                   7                   8                   9                   \r\n"
+            "Ns                  0                   1                   2                   3                   4                   5                   6                   7                   8                   9                   \r\n"
             "ctrl_type           Rest                CC                  CV                  CV                  CV                  CC                  CV                  Loop                Loop                Loop                \r\n"
             "Apply I/C           I                   I                   I                   I                   I                   I                   I                   I                   I                   I                   \r\n"
             "ctrl1_val                               1.000               3.300               3.300               3.300               142.900             4.200               100.000             100.000             100.000             \r\n"
-            "ctrl1_val_unit                          A                   A                   A                   A                   mA                  A                                                                               \r\n"
+            "ctrl1_val_unit                          A                   V                   V                   V                   mA                  V                                                                               \r\n"
             "ctrl1_val_vs                            <None>              Ref                 Ref                 Ref                 <None>              Ref                                                                             \r\n"
             "ctrl2_val                                                                                                                                                                                                                   \r\n"
             "ctrl2_val_unit                                                                                                                                                                                                              \r\n"
@@ -579,27 +579,27 @@ class ConversionTest(unittest.TestCase):
             "ctrl_Na             1                   1                   1                   1                   1                   1                   1                   1                   1                   1                   \r\n"
             "ctrl_corr           1                   1                   1                   1                   1                   1                   1                   1                   1                   1                   \r\n"
             "lim_nb              1                   1                   1                   1                   1                   1                   1                   0                   0                   0                   \r\n"
-            "lim1_type           Time                Time                I                   I                   I                   Ecell               I                   Time                Time                Time                \r\n"
+            "lim1_type           Time                Time                |I|                 |I|                 |I|                 Ecell               |I|                 Time                Time                Time                \r\n"
             "lim1_comp           >                   >                   <                   <                   <                   >                   <                   <                   <                   <                   \r\n"
             "lim1_Q              Q limit             Q limit             Q limit             Q limit             Q limit             Q limit             Q limit             Q limit             Q limit             Q limit             \r\n"
             "lim1_value          3.000               1.000               28.600              28.600              28.600              4.200               28.600              0.000               0.000               0.000               \r\n"
             "lim1_value_unit     h                   s                   mA                  mA                  mA                  V                   mA                  s                   s                   s                   \r\n"
             "lim1_action         Next sequence       Next sequence       Next sequence       Next sequence       Next sequence       Next sequence       Next sequence       Next sequence       Next sequence       Next sequence       \r\n"
-            "lim1_seq            1                   2                   3                   4                   5                   7                   7                   8                   9                   10                  \r\n"
+            "lim1_seq            1                   2                   3                   4                   5                   6                   7                   8                   9                   10                  \r\n"
             "lim2_type           Time                Time                Time                Time                Time                Time                Time                Time                Time                Time                \r\n"
             "lim2_comp           <                   <                   <                   <                   <                   <                   <                   <                   <                   <                   \r\n"
             "lim2_Q              Q limit             Q limit             Q limit             Q limit             Q limit             Q limit             Q limit             Q limit             Q limit             Q limit             \r\n"
             "lim2_value          0.000               0.000               0.000               0.000               0.000               0.000               0.000               0.000               0.000               0.000               \r\n"
             "lim2_value_unit     s                   s                   s                   s                   s                   s                   s                   s                   s                   s                   \r\n"
             "lim2_action         Next sequence       Next sequence       Next sequence       Next sequence       Next sequence       Next sequence       Next sequence       Next sequence       Next sequence       Next sequence       \r\n"
-            "lim2_seq            1                   2                   3                   4                   5                   6                   6                   8                   9                   10                  \r\n"
+            "lim2_seq            1                   2                   3                   4                   5                   6                   7                   8                   9                   10                  \r\n"
             "lim3_type           Time                Time                Time                Time                Time                Time                Time                Time                Time                Time                \r\n"
             "lim3_comp           <                   <                   <                   <                   <                   <                   <                   <                   <                   <                   \r\n"
             "lim3_Q              Q limit             Q limit             Q limit             Q limit             Q limit             Q limit             Q limit             Q limit             Q limit             Q limit             \r\n"
             "lim3_value          0.000               0.000               0.000               0.000               0.000               0.000               0.000               0.000               0.000               0.000               \r\n"
             "lim3_value_unit     s                   s                   s                   s                   s                   s                   s                   s                   s                   s                   \r\n"
             "lim3_action         Next sequence       Next sequence       Next sequence       Next sequence       Next sequence       Next sequence       Next sequence       Next sequence       Next sequence       Next sequence       \r\n"
-            "lim3_seq            1                   2                   3                   4                   5                   6                   6                   8                   9                   10                  \r\n"
+            "lim3_seq            1                   2                   3                   4                   5                   6                   7                   8                   9                   10                  \r\n"
             "rec_nb              1                   1                   2                   2                   2                   2                   2                   0                   0                   0                   \r\n"
             "rec1_type           Time                Time                Ecell               Ecell               Ecell               Ecell               Ecell               Time                Time                Time                \r\n"
             "rec1_value          30.000              10.000              1.000               1.000               1.000               1.000               1.000               10.000              10.000              10.000              \r\n"
@@ -623,7 +623,7 @@ class ConversionTest(unittest.TestCase):
         expected_lines = expected_output.split("\r\n")
 
         converter = MaccorToBiologicMb()
-        actual_output = converter.maccor_ast_to_protocol_str(maccor_ast, 20)
+        actual_output = converter.maccor_ast_to_protocol_str(maccor_ast, unroll=True, col_width=20)
         actual_lines = actual_output.split("\r\n")
 
         self.assertEqual(
@@ -675,5 +675,6 @@ class ConversionTest(unittest.TestCase):
         pass
 
     def test_convert_diagnostic(self):
+        # convert_diagnostic_v5_multi_techniques(source_file="BioTest_000001.000")
         with ScratchDir("."):
             convert_diagnostic_v5_multi_techniques(source_file="diagnosticV5.000")
